@@ -18,6 +18,7 @@ class NewsController extends Controller
 
     public function create()
     {
+        echo 'create';die;
         return view('home.news.create');
     }
 
