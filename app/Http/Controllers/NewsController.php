@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Home\News;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        return view('home.news.index');
+        $news = News::orderBy('created_at', 'desc')->paginate(15);
+        return view('home.news.index', compact('news'));
     }
 
-    public function show()
+    public function show(News $new)
     {
-        return view('home.news.show');
+        return view('home.news.show', compact('new'));
     }
 
     public function create()
     {
-        echo 'create';die;
         return view('home.news.create');
     }
 
