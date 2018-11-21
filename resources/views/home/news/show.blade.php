@@ -10,11 +10,11 @@
                 </a>
             </div>
 
-            <p class="blog-post-meta">{{$new->created_at->toFormattedDateString()}} by <a href="/user/{{$new->user_id}}">{{$new->user_id}}</a></p>
+            <p class="blog-post-meta">{{$new->created_at->toFormattedDateString()}} by <a href="/user/{{$new->user_id}}">Asia</a></p>
             <p>{!! $new->content !!}</p>
             <div>
-                <a href="/news/1/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
-                <a href="/news/1/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                <a href="/news/{{$new->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
+                <a href="/news/{{$new->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
             </div>
         </div>
 
