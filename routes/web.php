@@ -18,4 +18,6 @@ Route::group(['prefix' => 'news'], function () {
     Route::get('{new}', '\App\Http\Controllers\NewsController@show');
     Route::get('{new}/edit', '\App\Http\Controllers\NewsController@edit');
     Route::put('{new}', '\App\Http\Controllers\NewsController@update');
+    Route::post('img/upload', '\App\Http\Controllers\NewsController@imageUpload');
+    Route::get('{new}/delete', '\App\Http\Controllers\NewsController@delete');
 });

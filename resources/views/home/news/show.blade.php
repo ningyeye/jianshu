@@ -5,8 +5,11 @@
         <div class="blog-post">
             <div style="display:inline-flex">
                 <h2 class="blog-post-title">{{$new->title}}</h2>
-                <a style="margin: auto" href="/news/{{$new->user_id}}/edit">
+                <a style="margin: auto" href="/news/{{$new->id}}/edit">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </a>
+                <a style="margin: auto"  href="/news/{{$new->id}}/delete">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
             </div>
 

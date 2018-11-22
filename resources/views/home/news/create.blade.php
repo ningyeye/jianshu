@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-sm-8 blog-main">
-        <form action="/news" method="POST">
+        <form action="/news" method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
             <div class="form-group">
                 <label>标题</label>
@@ -14,15 +14,10 @@
             </div>
             <div class="form-group">
                 <label>内容</label>
-                <textarea id="content" style="height:400px;max-height:500px;" name="content" class="form-control" placeholder="这里是内容"></textarea>
+                <div id="editor"></div>
+                <textarea id="content" style="height:400px;max-height:500px;display: none" name="content" class="form-control"></textarea>
             </div>
-            @if(count($errors))
-                <div class="xuan" role="alert">
-                    @foreach($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </div>
-            @endif
+            @include('home.layout.error')
             <button type="submit" class="btn btn-default">提交</button>
         </form>
         <br>

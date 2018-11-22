@@ -7,19 +7,14 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy">
-
-
+    <meta name="csrf-token" content="{{csrf_token()}}">
+    <link rel="Bookmark" href="/favicon.ico">
+    <link rel="Shortcut Icon" href="/favicon.ico"/>
     <title>laravel for blog</title>
-
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="{{asset('static/home/css/blog.css')}}" rel="stylesheet">
-    <link href="{{asset('static/home/css/wangEditor.min.css')}}" rel="stylesheet">
-
-
 </head>
 
 <body>
@@ -145,8 +140,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="{{asset('static/home/js/wangEditor.js')}}"></script>
-<script src="{{asset('static/home/js/ylaravel.js')}}"></script>
-
+<script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<script src="{{asset('static/home/js/home.js')}}"></script>
 </body>
 </html>
