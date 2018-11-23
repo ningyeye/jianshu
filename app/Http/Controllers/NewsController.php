@@ -32,7 +32,9 @@ class NewsController extends Controller
             'description' => 'required|max:255|min:10',
             'content' => 'required|min:100',
         ]);
-        if (News::create(request(['title', 'description', 'content']))) {
+        $user_id = \Auth::id();
+        $param = array_merge(request(['title', 'description', 'content']), compact('user_id'));
+        if (News::create($param)) {
             return redirect('/news');
         }
     }
@@ -49,6 +51,9 @@ class NewsController extends Controller
             'description' => 'required|max:255|min:10',
             'content' => 'required|min:100',
         ]);
+
+        $this->authorize('update', $new);
+
         $new->title = request('title');
         $new->description = request('description');
         $new->content = request('content');
@@ -59,6 +64,7 @@ class NewsController extends Controller
 
     public function delete(News $new)
     {
+        $this->authorize('delete', $new);
         if ($new->delete()) {
             return redirect('/news');
         }

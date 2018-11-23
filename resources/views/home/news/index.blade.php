@@ -37,7 +37,8 @@
             @foreach($news as $new)
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href="/news/{{$new->id}}">{{$new->title}}</a></h2>
-                    <p class="blog-post-meta">时间:{{$new->created_at->toFormattedDateString()}} 作者: <a href="/user/{{$new->user_id}}">Asia</a></p>
+                    <p class="blog-post-meta">时间:{{$new->created_at->toFormattedDateString()}} 作者: <a href="/user/{{$new->user_id}}">{{$new->user->name}}</a>
+                    </p>
                     {!! str_limit($new->description, 100, '...') !!}
                     <p class="blog-post-meta">赞 0 | 评论 0</p>
                 </div>

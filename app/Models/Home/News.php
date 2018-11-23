@@ -17,4 +17,10 @@ class News extends Model
      * @var array
      */
     protected $guarded = [];
+
+    // 文章关联用户 (因为news表中有user_id所以使用belongsTo)
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Home\User', 'user_id', 'id');
+    }
 }
