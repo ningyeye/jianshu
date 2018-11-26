@@ -37,4 +37,7 @@ Route::group(['prefix' => 'news'], function () {
     Route::put('{new}', '\App\Http\Controllers\NewsController@update');
     Route::post('img/upload', '\App\Http\Controllers\NewsController@imageUpload');
     Route::get('{new}/delete', '\App\Http\Controllers\NewsController@delete');
+
+    // 评论
+    Route::post('{new}/comment', '\App\Http\Controllers\NewsController@comment');
 });

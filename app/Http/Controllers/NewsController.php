@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Home\Comment;
 use App\Models\Home\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,12 +11,14 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::orderBy('created_at', 'desc')->paginate(15);
+        $news = News::orderBy('created_at', 'desc')->withCount('comments')->paginate(15);
         return view('home.news.index', compact('news'));
     }
 
     public function show(News $new)
     {
+        // 在控制器层渲染数据,因为在视图层会查询一次数据(避免操作数据库)
+        $new->load('comments');
         return view('home.news.show', compact('new'));
     }
 
@@ -68,6 +71,20 @@ class NewsController extends Controller
         if ($new->delete()) {
             return redirect('/news');
         }
+    }
+
+    public function comment(News $new)
+    {
+        $this->validate(request(), [
+            'content' => 'required|min:3',
+        ]);
+
+        $comment = new Comment();
+        $comment->user_id = \Auth::id();
+        $comment->content = request('content');
+        $new->comments()->save($comment);
+
+        return redirect('/news');
     }
 
     public function imageUpload(Request $request)
