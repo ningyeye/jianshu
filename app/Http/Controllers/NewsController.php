@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Home\Comment;
 use App\Models\Home\News;
+use App\Models\Home\Zan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +12,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::orderBy('created_at', 'desc')->withCount('comments')->paginate(15);
+        $news = News::orderBy('created_at', 'desc')->withCount(['comments', 'zans'])->paginate(15);
         return view('home.news.index', compact('news'));
     }
 
@@ -112,6 +113,35 @@ class NewsController extends Controller
             'res' => $resArr,
             'status' => 0
         ];
+    }
+
+    public function zan(News $new)
+    {
+        $param = [
+            'user_id' => \Auth::id(),
+            'news_id' => $new->id
+        ];
+        Zan::firstOrCreate($param);
+        return back();
+    }
+
+    public function unzan(News $new)
+    {
+        $new->zan(\Auth::id())->delete();
+        return back();
+    }
+
+    public function search()
+    {
+        // 验证
+        $this->validate(request(), [
+            'query' => 'required'
+        ]);
+        // 逻辑
+        $query = request('query');
+        $news = News::where('title', 'like', '%' . $query . '%')->paginate(10);
+        // 渲染
+        return view('home.news.search', compact('query', 'news'));
     }
 
 }

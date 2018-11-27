@@ -32,6 +32,7 @@ Route::group(['prefix' => 'news'], function () {
     Route::get('/', '\App\Http\Controllers\NewsController@index');
     Route::get('create', '\App\Http\Controllers\NewsController@create');
     Route::post('/', '\App\Http\Controllers\NewsController@store');
+    Route::get('search', '\App\Http\Controllers\NewsController@search');
     Route::get('{new}', '\App\Http\Controllers\NewsController@show');
     Route::get('{new}/edit', '\App\Http\Controllers\NewsController@edit');
     Route::put('{new}', '\App\Http\Controllers\NewsController@update');
@@ -40,4 +41,8 @@ Route::group(['prefix' => 'news'], function () {
 
     // 评论
     Route::post('{new}/comment', '\App\Http\Controllers\NewsController@comment');
+    // 赞
+    Route::get('{new}/zan', '\App\Http\Controllers\NewsController@zan');
+    Route::get('{new}/unzan', '\App\Http\Controllers\NewsController@unzan');
+
 });

@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="Bookmark" href="/favicon.ico">
     <link rel="Shortcut Icon" href="/favicon.ico"/>
-    <title>laravel for blog</title>
+    <title>{{env('APP_NAME')}}</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -21,23 +21,26 @@
 
 <div class="blog-masthead">
     <div class="container">
-        <ul class="nav navbar-nav navbar-left">
-            <li>
-                <a class="blog-nav-item " href="/news">首页</a>
-            </li>
-            <li>
-                <a class="blog-nav-item" href="/news/create">写文章</a>
-            </li>
-            <li>
-                <a class="blog-nav-item" href="/notices">通知</a>
-            </li>
-            <li>
-                <input name="query" type="text" value="" class="form-control" style="margin-top:10px" placeholder="搜索词">
-            </li>
-            <li>
-                <button class="btn btn-default" style="margin-top:10px" type="submit">Go!</button>
-            </li>
-        </ul>
+        <form action="/news/search" method="GET">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a class="blog-nav-item " href="/news">首页</a>
+                </li>
+                <li>
+                    <a class="blog-nav-item" href="/news/create">写文章</a>
+                </li>
+                <li>
+                    <a class="blog-nav-item" href="/notices">通知</a>
+                </li>
+                <li>
+                    <input name="query" type="text" value="@if(!empty($query)) {{$query}} @endif" class="form-control" style="margin-top:10px"
+                           placeholder="搜索词">
+                </li>
+                <li>
+                    <button class="btn btn-default" style="margin-top:10px" type="submit">Go!</button>
+                </li>
+            </ul>
+        </form>
 
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">

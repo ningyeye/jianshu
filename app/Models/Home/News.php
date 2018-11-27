@@ -4,6 +4,7 @@ namespace App\Models\Home;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class News extends \App\Models\Model
 {
     use SoftDeletes;
@@ -20,5 +21,17 @@ class News extends \App\Models\Model
     public function comments()
     {
         return $this->hasMany('\App\Models\Home\Comment')->orderBy('created_at', 'desc');
+    }
+
+    // 关联赞模型
+    public function zan($user_id)
+    {
+        return $this->hasOne('\App\Models\Home\Zan', 'news_id', 'id')->where('user_id', $user_id);
+    }
+
+    // 赞数
+    public function zans()
+    {
+        return $this->hasMany('\App\Models\Home\Zan')->orderBy('created_at', 'desc');
     }
 }

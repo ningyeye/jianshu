@@ -20,8 +20,11 @@
             <p class="blog-post-meta">{{$new->created_at->toFormattedDateString()}} by <a href="/user/{{$new->user_id}}">{{$new->user->name}}</a></p>
             <p>{!! $new->content !!}</p>
             <div>
-                <a href="/news/{{$new->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
-                <a href="/news/{{$new->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                @if($new->zan(\Auth::id())->exists())
+                    <a href="/news/{{$new->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
+                @else
+                    <a href="/news/{{$new->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                @endif
             </div>
         </div>
 
