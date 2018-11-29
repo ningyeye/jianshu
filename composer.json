@@ -16,7 +16,8 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "app/Libs/Coreseek"
         ],
         "psr-4": {
             "App\\": "app/"

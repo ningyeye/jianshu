@@ -8,8 +8,23 @@ use App\Models\Home\Zan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use \App\Libs\Coreseek\SphinxClient;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+
 class NewsController extends Controller
 {
+    protected $ck;
+
+    public function __construct()
+    {
+        $this->ck = new SphinxClient();
+        $this->ck->SetServer('127.0.0.1', 9312);
+        $this->ck->SetSortMode(SPH_SORT_ATTR_DESC, "created_at");
+        $this->ck->SetMatchMode(SPH_MATCH_EXTENDED);
+    }
+
     public function index()
     {
         $news = News::orderBy('created_at', 'desc')->withCount(['comments', 'zans'])->paginate(15);
@@ -139,9 +154,37 @@ class NewsController extends Controller
         ]);
         // 逻辑
         $query = request('query');
-        $news = News::where('title', 'like', '%' . $query . '%')->paginate(10);
+        $page = request('page') ? intval(request('page')) : 1;
+        $this->ck->SetLimits(($page - 1) * 10, 10);
+        $res = $this->ck->Query($query, 'js_news');
+        $total = $res['total'];
+        $ids = array();
+        if (empty($res['matches'])){
+            return redirect('/news');
+        }
+        foreach ($res["matches"] as $key => $arr) {
+            $ids[] = intval($key);
+        }
+        $news = News::whereIn('id', $ids)->get();
+
+        $opts = array("before_match" =>"<font color='#FF4939'>","after_match" =>"</font>", "chunk_separator" =>"...","limit" =>100,"around" =>256);
+        foreach($news as $key=>$val)
+        {
+            $row=$this->ck->BuildExcerpts(array($val->title,$val->description),'mysql',$query,$opts);
+            $val->title = $row[0];
+            $val->description = $row[1];
+        }
+
+        $paginator = new LengthAwarePaginator($news, $total, 10, $page, [
+            'path' => Paginator::resolveCurrentPath(),                // 注释2
+            'pageName' => 'page'
+        ]);
+        $paginator->appends(['query' => $query]);
+
+
+        //$news = News::where('title', 'like', '%' . $query . '%')->paginate(10);
         // 渲染
-        return view('home.news.search', compact('query', 'news'));
+        return view('home.news.search', compact('query', 'news', 'paginator', 'total'));
     }
 
 }
