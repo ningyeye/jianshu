@@ -22,4 +22,6 @@
         </form>
         <br>
     </div>
+    <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+    <script src="{{asset('static/home/js/home.js')}}"></script>
 @endsection

@@ -45,14 +45,14 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <div>
-                    <img src="1.jpeg" alt="" class="img-rounded"
+                    <img src="https://www.douxie.com/statics/newdximages/images/logo2.png" alt="" class="img-rounded"
                          style="border-radius:500px; height: 30px">
                     <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         {{\Auth::user()->name}}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/5">我的主页</a></li>
-                        <li><a href="/user/5/setting">个人设置</a></li>
+                        <li><a href="/user/{{\Auth::id()}}">我的主页</a></li>
+                        <li><a href="/user/{{\Auth::id()}}/setting">个人设置</a></li>
                         <li><a href="/logout">登出</a></li>
                     </ul>
                 </div>
@@ -144,7 +144,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
-<script src="{{asset('static/home/js/home.js')}}"></script>
+<script src="{{asset('static/home/js/ylaravel.js')}}"></script>
 </body>
 </html>

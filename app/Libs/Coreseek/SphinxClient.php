@@ -1,5 +1,5 @@
 <?php
-namespace app\Libs\Coreseek;
+namespace App\Libs\CoreSeek;
 //
 // $Id$
 //
