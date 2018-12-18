@@ -8,7 +8,11 @@ use App\Models\Home\Zan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+<<<<<<< HEAD
 use App\Libs\CoreSeek\SphinxClient;
+=======
+use app\Libs\Coreseek\SphinxClient;
+>>>>>>> 0cca49faec7a844eea8aa3e84bf3de03d3c6d1ac
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -157,9 +161,10 @@ class NewsController extends Controller
         $page = request('page') ? intval(request('page')) : 1;
         $this->ck->SetLimits(($page - 1) * 10, 10);
         $res = $this->ck->Query($query, 'js_news');
+
         $total = $res['total'];
         $ids = array();
-        if (empty($res['matches'])){
+        if (empty($res['matches'])) {
             return redirect('/news');
         }
         foreach ($res["matches"] as $key => $arr) {
@@ -167,10 +172,9 @@ class NewsController extends Controller
         }
         $news = News::whereIn('id', $ids)->get();
 
-        $opts = array("before_match" =>"<font color='#FF4939'>","after_match" =>"</font>", "chunk_separator" =>"...","limit" =>100,"around" =>256);
-        foreach($news as $key=>$val)
-        {
-            $row=$this->ck->BuildExcerpts(array($val->title,$val->description),'mysql',$query,$opts);
+        $opts = array("before_match" => "<font color='#FF4939'>", "after_match" => "</font>", "chunk_separator" => "...", "limit" => 100, "around" => 256);
+        foreach ($news as $key => $val) {
+            $row = $this->ck->BuildExcerpts(array($val->title, $val->description), 'js_news', $query, $opts);
             $val->title = $row[0];
             $val->description = $row[1];
         }
