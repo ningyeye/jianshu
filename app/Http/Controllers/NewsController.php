@@ -8,11 +8,9 @@ use App\Models\Home\Zan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-<<<<<<< HEAD
+
 use App\Libs\CoreSeek\SphinxClient;
-=======
-use app\Libs\Coreseek\SphinxClient;
->>>>>>> 0cca49faec7a844eea8aa3e84bf3de03d3c6d1ac
+
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
